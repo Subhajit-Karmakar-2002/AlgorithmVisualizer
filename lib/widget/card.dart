@@ -1,4 +1,3 @@
-import 'package:algo_visualizer/pages/bubblesort.dart';
 import 'package:flutter/material.dart';
 
 class AlgoCard extends StatelessWidget {

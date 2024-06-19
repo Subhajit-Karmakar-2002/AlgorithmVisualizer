@@ -28,6 +28,10 @@ class quickSort extends SortEvent {
   @override
   List<Object?> get props => throw UnimplementedError();
 }
+class heapSort extends SortEvent {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
 
 class shuffleArray extends SortEvent {
   @override

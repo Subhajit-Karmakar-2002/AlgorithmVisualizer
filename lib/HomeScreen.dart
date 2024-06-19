@@ -73,6 +73,14 @@ class Homescreen extends StatelessWidget {
                       sortEvent: quickSort(),
                     ),
                   ),
+                  AlgoCard(
+                    algoname: "Heap Sort",
+                    icon: Icons.stacked_line_chart_outlined,
+                    pagename: Commonpage(
+                      label: "Heap Sort",
+                      sortEvent: heapSort(),
+                    ),
+                  ),
                 ],
               ),
             ),

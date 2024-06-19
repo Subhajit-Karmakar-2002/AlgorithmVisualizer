@@ -14,6 +14,7 @@ class SortBloc extends Bloc<SortEvent, SortState> {
     on<insertionSort>(_insertionSort);
     on<mergeSort>(_mergeSort);
     on<quickSort>(_quickSort);
+    on<heapSort>(_heapSort);
     on<shuffleArray>(_onShuffleArray);
     on<delayUpdate>(_delayupdate);
     on<changeArraySize>(_arrayChange);
@@ -279,5 +280,71 @@ class SortBloc extends Bloc<SortEvent, SortState> {
     await Future.delayed(Duration(milliseconds: delay));
 
     return i + 1;
+  }
+
+  void _heapSort(heapSort event, Emitter<SortState> emit) async {
+    List<int> array = List.from(state.array);
+    int n = array.length;
+
+    // Build a maxheap.
+    for (int i = n ~/ 2 - 1; i >= 0; i--) {
+      await _heapify(array, n, i, state.delay, emit);
+    }
+
+    // One by one extract elements
+    for (int i = n - 1; i > 0; i--) {
+      // Move current root to end
+      int temp = array[0];
+      array[0] = array[i];
+      array[i] = temp;
+
+      emit(SortState(
+          array: List.from(array),
+          delay: state.delay,
+          noOfElement: state.noOfElement));
+      await Future.delayed(Duration(milliseconds: state.delay));
+
+      // call max heapify on the reduced heap
+      await _heapify(array, i, 0, state.delay, emit);
+    }
+
+    emit(SortState(
+        array: array,
+        isSorted: true,
+        delay: state.delay,
+        noOfElement: state.noOfElement));
+  }
+
+  Future<void> _heapify(
+      List<int> array, int n, int i, int delay, Emitter<SortState> emit) async {
+    int largest = i; // Initialize largest as root
+    int left = 2 * i + 1; // left = 2*i + 1
+    int right = 2 * i + 2; // right = 2*i + 2
+
+    // If left child is larger than root
+    if (left < n && array[left] > array[largest]) {
+      largest = left;
+    }
+
+    // If right child is larger than largest so far
+    if (right < n && array[right] > array[largest]) {
+      largest = right;
+    }
+
+    // If largest is not root
+    if (largest != i) {
+      int swap = array[i];
+      array[i] = array[largest];
+      array[largest] = swap;
+
+      emit(SortState(
+          array: List.from(array),
+          delay: state.delay,
+          noOfElement: state.noOfElement));
+      await Future.delayed(Duration(milliseconds: delay));
+
+      // Recursively heapify the affected sub-tree
+      await _heapify(array, n, largest, delay, emit);
+    }
   }
 }
