@@ -7,15 +7,20 @@ import 'package:algo_visualizer/widget/displayArray.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Bubblesort extends StatelessWidget {
-  const Bubblesort({super.key});
-
+class Commonpage extends StatelessWidget {
+  final SortEvent sortEvent;
+  final label;
+  const Commonpage({
+    super.key,
+    required this.sortEvent,
+    required this.label,
+  });
   @override
   Widget build(BuildContext context) {
     final noOfElement = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sorting Visualizer'),
+        title: Text(label),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -49,7 +54,7 @@ class Bubblesort extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        context.read<SortBloc>().add(bubbleSort());
+                        context.read<SortBloc>().add(sortEvent);
                       },
                       child: const Text('Start Sorting'),
                     ),

@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:ffi';
 
 import 'package:equatable/equatable.dart';
@@ -6,21 +8,36 @@ abstract class SortEvent extends Equatable {}
 
 class bubbleSort extends SortEvent {
   @override
+  List<Object?> get props => throw UnimplementedError();
+}
+class selectionSort extends SortEvent {
+  @override
   // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+  
+}
+class insertionSort extends SortEvent {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+class mergeSort extends SortEvent {
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}
+class quickSort extends SortEvent {
+  @override
   List<Object?> get props => throw UnimplementedError();
 }
 
 class shuffleArray extends SortEvent {
   @override
-  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
 class delayUpdate extends SortEvent {
-  double sliderval;
+  int sliderval;
   delayUpdate({required this.sliderval});
   @override
-  // TODO: implement props
   List<Object?> get props => [sliderval];
 }
 

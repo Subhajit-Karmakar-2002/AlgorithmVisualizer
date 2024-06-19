@@ -1,9 +1,16 @@
+import 'package:algo_visualizer/pages/bubblesort.dart';
 import 'package:flutter/material.dart';
 
 class AlgoCard extends StatelessWidget {
   final String algoname;
   final dynamic pagename;
-  const AlgoCard({super.key, required this.algoname,required this.pagename});
+  final IconData icon;
+  const AlgoCard({
+    super.key,
+    required this.algoname,
+    required this.icon,
+    this.pagename,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +23,8 @@ class AlgoCard extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => pagename,
-          ));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => pagename));
         },
         child: Card(
             elevation: 10,
@@ -31,7 +37,7 @@ class AlgoCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.bubble_chart,
+                    icon,
                     size: 70,
                   ),
                   Text(

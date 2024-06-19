@@ -1,4 +1,5 @@
-import 'package:algo_visualizer/pages/bubblesort.dart';
+import 'package:algo_visualizer/algorithm/bloc/sort_event.dart';
+import 'package:algo_visualizer/pages/commonPage.dart';
 import 'package:algo_visualizer/widget/card.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +19,12 @@ class Homescreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(20),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Sorting',
               style: TextStyle(
                 fontSize: 30,
@@ -35,21 +36,47 @@ class Homescreen extends StatelessWidget {
               child: Row(
                 children: [
                   AlgoCard(
+                    icon: Icons.bubble_chart,
                     algoname: "Bubble Sort",
-                    pagename: Bubblesort(),
+                    pagename: Commonpage(
+                      label: "Bubble Sort",
+                      sortEvent: bubbleSort(),
+                    ),
                   ),
                   AlgoCard(
-                    algoname: "Bubble Sort",
-                    pagename: Bubblesort(),
+                    icon: Icons.select_all_outlined,
+                    algoname: "Selection Sort",
+                    pagename: Commonpage(
+                      label: "Selection Sort",
+                      sortEvent: selectionSort(),
+                    ),
                   ),
                   AlgoCard(
-                    algoname: "Bubble Sort",
-                    pagename: Bubblesort(),
+                    icon: Icons.insert_chart_outlined,
+                    algoname: "Insertion Sort",
+                    pagename: Commonpage(
+                        label: "Insertion Sort", sortEvent: insertionSort()),
+                  ),
+                  AlgoCard(
+                    algoname: "Merge Sort",
+                    icon: Icons.merge_outlined,
+                    pagename: Commonpage(
+                      label: "Merge Sort",
+                      sortEvent: mergeSort(),
+                    ),
+                  ),
+                  AlgoCard(
+                    algoname: "Quick Sort",
+                    icon: Icons.sort_rounded,
+                    pagename: Commonpage(
+                      label: "Quick Sort",
+                      sortEvent: quickSort(),
+                    ),
                   ),
                 ],
               ),
             ),
-            Text(
+            const Text(
               'Path Finding Algo',
               style: TextStyle(
                 fontSize: 30,
