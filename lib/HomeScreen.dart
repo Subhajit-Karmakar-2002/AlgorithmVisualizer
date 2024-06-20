@@ -1,6 +1,8 @@
-import 'package:algo_visualizer/algorithm/bloc/sort_event.dart';
-import 'package:algo_visualizer/pages/commonPage.dart';
-import 'package:algo_visualizer/widget/card.dart';
+import 'package:algo_visualizer/algorithm/sortalgo/sort_event.dart';
+import 'package:algo_visualizer/pages/graphPage.dart';
+import 'package:algo_visualizer/pages/pathFindingPage.dart';
+import 'package:algo_visualizer/pages/sortingPage.dart';
+import 'package:algo_visualizer/widget/sort/card.dart';
 import 'package:flutter/material.dart';
 
 class Homescreen extends StatelessWidget {
@@ -91,6 +93,31 @@ class Homescreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const Row(
+              children: [
+                AlgoCard(
+                  algoname: "Path",
+                  icon: Icons.pattern_sharp,
+                  pagename: PathfindingPage(),
+                ),
+              ],
+            ),
+            Text(
+              'Graph',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Row(
+              children: [
+                AlgoCard(
+                  algoname: "graph",
+                  icon: Icons.grid_goldenratio_sharp,
+                  pagename: GraphDemo(),
+                ),
+              ],
+            )
           ],
         ),
       ),

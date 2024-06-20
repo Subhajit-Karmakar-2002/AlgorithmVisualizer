@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:algo_visualizer/algorithm/bloc/sort_event.dart';
-import 'package:algo_visualizer/algorithm/bloc/sort_state.dart';
+import 'package:algo_visualizer/algorithm/sortalgo/sort_event.dart';
+import 'package:algo_visualizer/algorithm/sortalgo/sort_state.dart';
 import 'package:bloc/bloc.dart';
 
 class SortBloc extends Bloc<SortEvent, SortState> {

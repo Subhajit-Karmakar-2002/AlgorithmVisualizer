@@ -1,6 +1,6 @@
-import 'package:algo_visualizer/algorithm/bloc/sort_bloc.dart';
-import 'package:algo_visualizer/algorithm/bloc/sort_event.dart';
-import 'package:algo_visualizer/algorithm/bloc/sort_state.dart';
+import 'package:algo_visualizer/algorithm/sortalgo/sort_bloc.dart';
+import 'package:algo_visualizer/algorithm/sortalgo/sort_event.dart';
+import 'package:algo_visualizer/algorithm/sortalgo/sort_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

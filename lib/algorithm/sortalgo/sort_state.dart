@@ -1,4 +1,3 @@
-import 'package:algo_visualizer/algorithm/bloc/sort_event.dart';
 import 'package:equatable/equatable.dart';
 
 class SortState extends Equatable {
