@@ -21,6 +21,7 @@ class PathBloc extends Bloc<PathEvent, PathState> {
     on<togglestartPosition>(_togglestartPosition);
     on<toggleendPosition>(_toggleendPosition);
     on<bfs>(_bfs);
+    on<dfs>(_dfs);
     on<reset>(_reset);
   }
 
@@ -124,7 +125,8 @@ class PathBloc extends Bloc<PathEvent, PathState> {
             ng[newRow][newCol] = 2;
             queue.add(Position(rowIndex: newRow, colIndex: newCol));
             emit(state.copyWith(grid: ng));
-            await Future.delayed(Duration(milliseconds: 10));
+            await Future.delayed(const Duration(milliseconds: 50));
+
             if (newRow == state.endPosition.rowIndex &&
                 newCol == state.endPosition.colIndex) {
               final x = List<List<int>>.from(state.grid);
@@ -136,14 +138,13 @@ class PathBloc extends Bloc<PathEvent, PathState> {
                 }
               }
               emit(state.copyWith(grid: x));
-              print(x);
               return;
             }
           }
         }
       }
       emit(state.copyWith(grid: ng));
-      await Future.delayed(Duration(milliseconds: 10));
+      await Future.delayed(const Duration(milliseconds: 10));
     }
   }
 
@@ -152,8 +153,63 @@ class PathBloc extends Bloc<PathEvent, PathState> {
     Position newpos =
         Position(rowIndex: newgrid.length + 1, colIndex: newgrid.length + 1);
 
-    print(newgrid);
     emit(state.copyWith(
-        grid: newgrid, startPosition: newpos, endPosition: newpos));
+      grid: newgrid,
+      startPosition: newpos,
+      endPosition: newpos,
+      toggleend: false,
+      togglestart: false,
+      wantToUpdatePath: false,
+    ));
+  }
+
+  void _dfs(dfs event, Emitter<PathState> emit) async {
+    final newGrid =
+        List<List<int>>.from(state.grid.map((row) => List<int>.from(row)));
+
+    Future<bool> dfsRecursive(Position current) async {
+      // If the current position is out of bounds or already visited, return false.
+      if (current.rowIndex < 0 ||
+          current.rowIndex >= newGrid.length ||
+          current.colIndex < 0 ||
+          current.colIndex >= newGrid[0].length ||
+          newGrid[current.rowIndex][current.colIndex] != 0) {
+        return false;
+      }
+
+      // Mark the current cell as visited.
+      newGrid[current.rowIndex][current.colIndex] = 2;
+      emit(state.copyWith(grid: newGrid));
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      // If the current position is the end position, return true.
+      if (current.rowIndex == state.endPosition.rowIndex &&
+          current.colIndex == state.endPosition.colIndex) {
+        return true;
+      }
+
+      // Explore all possible directions.
+      final directions = [
+        Position(rowIndex: -1, colIndex: 0),
+        Position(rowIndex: 1, colIndex: 0),
+        Position(rowIndex: 0, colIndex: -1),
+        Position(rowIndex: 0, colIndex: 1),
+      ];
+
+      for (final direction in directions) {
+        final newRow = current.rowIndex + direction.rowIndex;
+        final newCol = current.colIndex + direction.colIndex;
+        if (await dfsRecursive(Position(rowIndex: newRow, colIndex: newCol))) {
+          return true;
+        }
+      }
+      newGrid[current.rowIndex][current.colIndex] = 3;
+      emit(state.copyWith(grid: newGrid));
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      return false;
+    }
+
+    await dfsRecursive(state.startPosition);
   }
 }

@@ -1,6 +1,5 @@
 // ignore_for_file: camel_case_types
 
-import 'dart:ffi';
 
 import 'package:equatable/equatable.dart';
 

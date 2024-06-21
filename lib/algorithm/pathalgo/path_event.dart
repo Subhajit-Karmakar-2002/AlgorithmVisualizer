@@ -1,4 +1,3 @@
-import 'package:algo_visualizer/algorithm/pathalgo/path_state.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class PathEvent extends Equatable {
@@ -28,4 +27,7 @@ class toggleendPosition extends PathEvent {}
 
 
 class bfs extends PathEvent{}
+
+class dfs extends PathEvent{}
+
 class reset extends PathEvent{}
