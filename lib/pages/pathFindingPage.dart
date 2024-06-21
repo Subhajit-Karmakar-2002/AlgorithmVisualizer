@@ -18,34 +18,76 @@ class PathfindingPage extends StatelessWidget {
         padding: const EdgeInsets.all(30.0),
         child: Column(
           children: [
+            BlocBuilder<PathBloc, PathState>(
+              builder: (context, state) {
+                if (state.togglestartPositon) {
+                  return const Text("Click cell to Set Start Position");
+                }
+                if (state.toggleendPositon) {
+                  return const Text("Click cell to Set Final Position");
+                }
+                if (state.wantToUpdatePath) {
+                  return const Text("Click cell to Modify Path");
+                }
+                return const Text("Hi");
+              },
+            ),
             const Expanded(
               child: PathDisplay(),
-            ),
-            Container(
-              child: BlocBuilder<PathBloc, PathState>(
-                builder: (context, state) {
-                  return ElevatedButton(
-                    onPressed: () {
-                      context.read<PathBloc>().add(TogglePathUpdate());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Enable Path update"),
-                        Text(state.wantToUpdatePath ? "Yes" : "No"),
-                      ],
-                    ),
-                  );
-                },
-              ),
             ),
             BlocBuilder<PathBloc, PathState>(
               builder: (context, state) {
                 return ElevatedButton(
                   onPressed: () {
-                    // context.read<PathBloc>().add(UpdateStartPosition(startPosition))
+                    context.read<PathBloc>().add(TogglePathUpdate());
                   },
-                  child: Text("Set Start Position"),
+                  child: const Icon(
+                    Icons.edit,
+                  ),
+                );
+              },
+            ),
+            BlocBuilder<PathBloc, PathState>(
+              buildWhen: (previous, current) =>
+                  previous.togglestartPositon != current.togglestartPositon,
+              builder: (context, state) {
+                return ElevatedButton(
+                  onPressed: () {
+                    context.read<PathBloc>().add(togglestartPosition());
+                  },
+                  child: const Text("Set Start Position"),
+                );
+              },
+            ),
+            BlocBuilder<PathBloc, PathState>(
+              buildWhen: (previous, current) =>
+                  previous.toggleendPositon != current.toggleendPositon,
+              builder: (context, state) {
+                return ElevatedButton(
+                  onPressed: () {
+                    context.read<PathBloc>().add(toggleendPosition());
+                  },
+                  child: const Text("Set End Position"),
+                );
+              },
+            ),
+            BlocBuilder<PathBloc, PathState>(
+              builder: (context, state) {
+                return ElevatedButton(
+                  onPressed: () {
+                    context.read<PathBloc>().add(bfs());
+                  },
+                  child: const Text("Start"),
+                );
+              },
+            ),
+            BlocBuilder<PathBloc, PathState>(
+              builder: (context, state) {
+                return ElevatedButton(
+                  onPressed: () {
+                    context.read<PathBloc>().add(reset());
+                  },
+                  child: const Text("Reset"),
                 );
               },
             ),

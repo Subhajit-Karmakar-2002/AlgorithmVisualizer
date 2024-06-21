@@ -20,20 +20,12 @@ class UpdateGrid extends PathEvent {
 
 class TogglePathUpdate extends PathEvent {}
 
-class UpdateStartPosition extends PathEvent {
-  final Position startPosition;
 
-  const UpdateStartPosition(this.startPosition);
 
-  @override
-  List<Object> get props => [startPosition];
-}
+class togglestartPosition extends PathEvent {}
 
-class UpdateEndPosition extends PathEvent {
-  final Position endPosition;
+class toggleendPosition extends PathEvent {}
 
-  const UpdateEndPosition(this.endPosition);
 
-  @override
-  List<Object> get props => [endPosition];
-}
+class bfs extends PathEvent{}
+class reset extends PathEvent{}
